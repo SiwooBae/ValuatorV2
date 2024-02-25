@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
+            const countryFilter = document.getElementById('country-filter').value;
+            if (countryFilter) {
+                formData.append('country', countryFilter);
+            }
             const url = this.action;
             fetch(url, {
                 method: 'POST',

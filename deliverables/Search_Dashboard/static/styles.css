@@ -103,6 +103,26 @@ button:hover {
     border-bottom: none;
 }
 
+/* Results Header and Country Filter Styles */
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.country-filter {
+    max-width: 200px;
+}
+
+#country-filter {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 /* Table Styles */
 #results-table {
     width: 100%;
