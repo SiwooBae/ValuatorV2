@@ -4,6 +4,7 @@ function fetchAndDisplayDescription(symbol, row) {
     if (descRow && descRow.classList.contains("description-row")) {
         toggleDescriptionVisibility(descRow);
     } else {
+        row.style.cursor = 'progress';  // Indicate loading
         // If no description row exists, fetch and display it
         fetch('/description', {
             method: 'POST',
@@ -12,15 +13,14 @@ function fetchAndDisplayDescription(symbol, row) {
         }).then(response => response.json())
             .then(data => {
                 if (data.description) {
-                    // Create and insert the description row
                     descRow = createDescriptionRow(data.description);
                     row.parentNode.insertBefore(descRow, row.nextSibling);
-
-                    // Start the slide-down animation
-                    setTimeout(() => toggleDescriptionVisibility(descRow), 10);
+                    setTimeout(() => toggleDescriptionVisibility(descRow), 100); // Slight delay
                 }
+                row.style.cursor = 'pointer'; // Revert cursor
             }).catch(error => {
             console.error('Error:', error);
+            row.style.cursor = 'pointer'; // Revert cursor on error
         });
     }
 }

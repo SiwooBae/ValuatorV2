@@ -226,21 +226,21 @@ button:hover {
     /* Other styling as needed */
 }
 
-/* Description Row Initial State */
+/* Refined Description Row Style */
 .description-row {
     display: none;
     transform: translateY(-100%);
     opacity: 0;
-    transition: all 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* Description Cell Styling */
 .description-cell {
     padding: 15px;
-    background-color: #f8f8f8;
+    background-color: #f9f9f9; /* Light background for expanded area */
+    border-top: 1px solid #eee; /* Top border for separation */
 }
 
-/* Animation When Row Is Visible */
+/* Enhanced Visible State */
 .description-row.visible {
     display: table-row;
     transform: translateY(0);
