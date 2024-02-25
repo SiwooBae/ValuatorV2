@@ -162,6 +162,9 @@ button:hover {
     width: 40%; /* Adjust as per your requirement */
 }
 
+#results-table tr {
+    cursor: pointer; /* Indicates that rows are clickable */
+}
 #results-table tr:hover {
     background-color: #f1f1f1;
 }
@@ -209,5 +212,44 @@ button:hover {
 @media (max-width: 1800px) {
     .search-section {
         flex-basis: 100%; /* Full width on smaller screens */
+    }
+}
+
+#results-table tr.expanded td {
+    padding: 15px;
+    background-color: #f9f9f9; /* Light background for expanded area */
+}
+
+.description-cell {
+    background-color: #f9f9f9; /* Light background for the description */
+    padding: 15px;
+    /* Other styling as needed */
+}
+
+/* Description Row Initial State */
+.description-row {
+    display: none;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+/* Description Cell Styling */
+.description-cell {
+    padding: 15px;
+    background-color: #f8f8f8;
+}
+
+/* Animation When Row Is Visible */
+.description-row.visible {
+    display: table-row;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Responsive Table */
+@media (max-width: 600px) {
+    .description-cell {
+        padding: 10px;
     }
 }

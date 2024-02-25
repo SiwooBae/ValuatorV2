@@ -15,7 +15,11 @@ def search():
     query = request.form.get('query')
     country = request.form.get('country', '')
     try:
-        similar_companies = heimdall.semantic_search(query, country)
+        if country == '':
+            similar_companies = heimdall.semantic_search(query)
+            # Use country filter if provided
+        else:
+            similar_companies = heimdall.semantic_search(query, country_filter=country)
         return jsonify(similar_companies)
     except Exception as e:
         return jsonify({"error": str(e)})
@@ -26,8 +30,21 @@ def peer_search():
     symbol = request.form.get('symbol')
     country = request.form.get('country', '')
     try:
-        peer_companies = heimdall.find_peers_of(symbol, country)
+        if country == '':
+            peer_companies = heimdall.find_peers_of(symbol)  # Use country filter if provided
+        else:
+            peer_companies = heimdall.find_peers_of(symbol, country=country)
         return jsonify(peer_companies)
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+@app.route('/description', methods=['POST'])
+def show_description():
+    company_symbol = request.form.get('symbol')
+    try:
+        description = heimdall.show_description(company_symbol)
+        return jsonify({"description": description})
     except Exception as e:
         return jsonify({"error": str(e)})
 

@@ -50,3 +50,6 @@ class Heimdall:
         query = self.prof.profiles[self.prof.profiles['Symbol'] == symbol]['description'].tolist()
         query = query[0]
         return self.semantic_search(query, country, top=top, dim_reducer=dim_reducer)
+
+    def show_description(self, symbol):
+        return self.prof.profiles[self.prof.profiles['Symbol'] == symbol]['description'].tolist()[0]
