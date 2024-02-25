@@ -4,7 +4,7 @@ import json
 from io import StringIO
 import pandas as pd
 
-APIKEY = '???'
+APIKEY = '05ad7c34febe7abdd32257d3ece2b148'
 
 
 def get_jsonparsed_data(url):
@@ -59,7 +59,15 @@ class Updater:
         return get_jsonparsed_data(self.url_root + "/v3/financial-statement-symbol-lists?")
 
     def get_symbol_changes(self):
-        return get_jsonparsed_data(self.url_root + "/v4/symbol_change?")
+        response = urlopen(self.url_root + "/v4/symbol_change?apikey=" + APIKEY, cafile=certifi.where())
+        data = response.read().decode("utf-8")
+        return json.loads(data)
+
+    def get_stock_news(self, page: int):
+        return get_jsonparsed_data(self.url_root + f"/v3/stock_news?page={page}")
+
+    def get_general_news(self, page: int):
+        return get_jsonparsed_data(self.url_root + f"/v4/general_news?page={page}")
 
     def get_delisted_symbols(self):
         return get_jsonparsed_data(self.url_root + "/v4/delisted-companies?")
@@ -70,3 +78,13 @@ class Updater:
     def get_daily_price(self, symbol, date_from, date_to):
         return get_jsonparsed_data(
             self.url_root + "/v3/historical-chart/1day/" + symbol + "?from="+str(date_from)+"&to="+str(date_to))
+
+    def get_macro_indicator(self, indicator):
+        return get_jsonparsed_data(
+            self.url_root + "/v4/economic?name=" + indicator)
+
+    def get_treasury(self, date_from, date_to):
+        return get_jsonparsed_data(self.url_root + f"/v4/treasury?from={str(date_from)}&to={str(date_to)}")
+
+
+
