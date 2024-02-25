@@ -1,0 +1,193 @@
+/* General Styles */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #1a1a1a;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+h1, h2 {
+    margin: 0 0 20px 0;
+    font-weight: 300;
+}
+
+/* Form Styles */
+form {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+label {
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 500;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus {
+    border-color: #1a1a1a;
+}
+
+button {
+    display: inline-block;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 2px;
+}
+
+button:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    header, main {
+        padding: 10px;
+    }
+
+    input[type="text"], button {
+        padding: 5px 10px;
+    }
+}
+
+.results-section {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.results-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.results-section li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.results-section li:last-child {
+    border-bottom: none;
+}
+
+/* Table Styles */
+#results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#results-table thead {
+    background-color: #f2f2f2;
+}
+
+#results-table th, #results-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+#results-table th {
+    color: #333;
+    font-weight: 600;
+}
+
+#results-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#results-table th:nth-child(1), #results-table td:nth-child(1) {
+    width: 20%; /* Adjust as per your requirement */
+}
+
+#results-table th:nth-child(2), #results-table td:nth-child(2) {
+    width: 40%; /* Adjust as per your requirement */
+}
+
+#results-table th:nth-child(3), #results-table td:nth-child(3) {
+    width: 40%; /* Adjust as per your requirement */
+}
+
+#results-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+#results-table td {
+    color: #555;
+}
+
+/* Responsive Table */
+@media (max-width: 600px) {
+    #results-table th, #results-table td {
+        padding: 8px;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply the animation to each table row */
+#results-table tr {
+    animation: slideDown 0.5s ease-out;
+}
+
+/* Search Sections Styles */
+.search-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.search-section {
+    flex: 1;
+    min-width: 300px; /* Minimum width for each search section */
+}
+
+@media (max-width: 1800px) {
+    .search-section {
+        flex-basis: 100%; /* Full width on smaller screens */
+    }
+}

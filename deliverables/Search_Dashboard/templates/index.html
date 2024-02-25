@@ -3,23 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
     <title>Semantic Search Dashboard</title>
 </head>
 <body>
+<header>
     <h1>Semantic Search Dashboard</h1>
+</header>
 
-    <h2>Semantic Search</h2>
-    <form action="/" method="post">
-        <label for="query">Enter your query:</label><br>
-        <input type="text" id="query" name="query" required><br>
-        <button type="submit">Search</button>
-    </form>
+<main>
+    <div class="search-sections">
 
-    <h2>Peer Search</h2>
-    <form action="/peer_search" method="post">
-        <label for="symbol">Enter company symbol:</label><br>
-        <input type="text" id="symbol" name="symbol" required><br>
-        <button type="submit">Search</button>
-    </form>
+        <section class="search-section">
+            <h2>Semantic Search</h2>
+            <form action="/search" method="post">
+                <div class="form-group">
+                    <label for="query">Enter your query:</label>
+                    <input type="text" id="query" name="query" placeholder="Type your query here" required>
+                </div>
+                <button type="submit" class="submit-btn">Search</button>
+            </form>
+        </section>
+
+        <section class="search-section">
+            <h2>Peer Search</h2>
+            <form action="/peer_search" method="post">
+                <div class="form-group">
+                    <label for="symbol">Enter company symbol:</label>
+                    <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+                </div>
+                <button type="submit" class="submit-btn">Search</button>
+            </form>
+        </section>
+
+    </div>
+
+    <section id="results-section">
+        <h2>Results</h2>
+        <table id="results-table">
+            <thead>
+            <tr>
+                <th>Score</th>
+                <th>Symbol</th>
+                <th>Company</th>
+            </tr>
+            </thead>
+            <tbody id="results-list"></tbody>
+        </table>
+    </section>
+    <script src="../static/results_list_script.js"></script>
 </body>
 </html>
