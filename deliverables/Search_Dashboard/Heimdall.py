@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from angle_emb import AnglE
 
 sys.path.append('../../')
-from classes.Datasets import CompanyProfileDataset
+from classes.Datasets import CompanyProfileDataset, FundamentalsDataset
 
 
 class Heimdall:
@@ -13,7 +13,7 @@ class Heimdall:
         self.prof = CompanyProfileDataset()
         self.prof.fit_standard_scaler()
         self.prof.apply_standard_scaler()
-        # self.fund = FundamentalsDataset()
+        self.fund = FundamentalsDataset()
         # self.price = PriceDataset()
 
         # self.embedder = SentenceTransformer('all-mpnet-base-v2')
