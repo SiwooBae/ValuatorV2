@@ -6,7 +6,6 @@ import pandas as pd
 
 APIKEY = '05ad7c34febe7abdd32257d3ece2b148'
 
-
 def get_jsonparsed_data(url):
     response = urlopen(url + "&apikey=" + APIKEY, cafile=certifi.where())
     data = response.read().decode("utf-8")

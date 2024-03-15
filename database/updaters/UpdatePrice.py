@@ -86,7 +86,7 @@ def insert_using_fmp(sym, begin_date):
 
 symbols = conn.execute("""
     SELECT DISTINCT symbol
-    FROM profile_v2
+    FROM profiles
     WHERE country = "US" -- only us companies for consistentcy
         AND symbol NOT LIKE "%-%"
         AND symbol NOT LIKE "%.%"
@@ -105,35 +105,36 @@ existing_symbols = {elem[0] for elem in existing_symbol_pairs}
 
 new_symbols = symbols - existing_symbols
 
-# print(len(new_symbols), "new symbols detected. Updating new symbols...")
-# for i, symbol in enumerate(new_symbols):  # for new symbols,
-#     try:
-#         # try yahoo first
-#         insert_using_Yahoo(symbol, MIN_date)
-#     except Exception as error_yahoo:
-#         log_error(symbol, today, str(error_yahoo))
-#         try:
-#             # try fmp datasource
-#             insert_using_fmp(symbol, MIN_date)
-#         except Exception as error_fmp:
-#             # if API doesn't respond, spit out error
-#             log_error(symbol, today, str(error_fmp))
-#             # and skip the loop
-#             continue
-#     print("progress:", str(i), "out of", str(len(new_symbols)))
+print(len(new_symbols), "new symbols detected. Updating new symbols...")
+for i, symbol in enumerate(new_symbols):  # for new symbols,
+    try:
+        # try yahoo first
+        insert_using_Yahoo(symbol, MIN_date)
+    except Exception as error_yahoo:
+        log_error(symbol, today, str(error_yahoo))
+        try:
+            # try fmp datasource
+            insert_using_fmp(symbol, MIN_date)
+        except Exception as error_fmp:
+            # if API doesn't respond, spit out error
+            log_error(symbol, today, str(error_fmp))
+            # and skip the loop
+            continue
+    print("progress:", str(i), "out of", str(len(new_symbols)))
 
 print(len(existing_symbols), "existing symbols detected. Updating existing symbols...")
 for i, pair in enumerate(existing_symbol_pairs):  # for existing symbols,
     symbol = pair[0]
     og_source = pair[1]
     latest_date = datetime.datetime.strptime(pair[2], '%Y-%m-%d %H:%M:%S').date()
-    # the source of the latest data
+    # if the source of the latest data is yahoo
     if og_source is None or og_source == "yahoo":
         try:
             # try yahoo first
             insert_using_Yahoo(symbol, latest_date)
         except Exception as error_yahoo:
             log_error(symbol, today, str(error_yahoo))
+            # if they don't have it
             try:
                 # try fmp datasource
                 insert_using_fmp(symbol, latest_date)
@@ -143,6 +144,7 @@ for i, pair in enumerate(existing_symbol_pairs):  # for existing symbols,
                 # and skip the loop
                 continue
 
+    #if the source is fmp,
     elif og_source == "fmp":
         try:
             # try fmp first
