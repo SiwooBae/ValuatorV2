@@ -129,3 +129,4 @@ function updateResultsTable(data) {
         resultsTable.innerHTML = `<tr><td colspan="3">Error: ${data.error}</td></tr>`;
     }
 }
+

@@ -12,14 +12,16 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
-    query = request.form.get('query')
+    expression = request.form.get('query')
     country = request.form.get('country', '')
     try:
         if country == '':
-            similar_companies = heimdall.semantic_search(query)
+            vec = heimdall.expression_to_vector(expression)
+            similar_companies = heimdall.semantic_search(vec)
             # Use country filter if provided
         else:
-            similar_companies = heimdall.semantic_search(query, country_filter=country)
+            vec = heimdall.expression_to_vector(expression)
+            similar_companies = heimdall.semantic_search(vec, country_filter=country)
         return jsonify(similar_companies)
     except Exception as e:
         return jsonify({"error": str(e)})
@@ -45,6 +47,19 @@ def show_description():
     try:
         description = heimdall.show_description(company_symbol)
         return jsonify({"description": description})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+@app.route('/predict_probabilities', methods=['POST'])
+def predict_probabilities():
+    query = request.form.get('query')
+    try:
+        # Assume a method to convert query to vector
+        vector = heimdall.expression_to_vector(query)
+        sector_proba = heimdall.predict_sector_proba(vector)[0]
+        industry_proba = heimdall.predict_industry_proba(vector)[0]
+        return jsonify({"sector": sector_proba.tolist(), "industry": industry_proba.tolist()})
     except Exception as e:
         return jsonify({"error": str(e)})
 
