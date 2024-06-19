@@ -4,7 +4,7 @@ import json
 from io import StringIO
 import pandas as pd
 
-APIKEY = '05ad7c34febe7abdd32257d3ece2b148'
+APIKEY = ''
 
 
 def get_jsonparsed_data(url):
